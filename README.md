@@ -24,6 +24,8 @@ $ openssl rand -hex 16
 558f3eacbfd5928157cbfe34823ab921
 ```
 
+NOTE: This key must be the same for ALL plugins in your pipeline. Authorisation is passed straight through from this plugin to each plugin in the pipeline.
+
 Run the container somewhere where the drone server can reach it (note: the order of endpoints matters):
 
 ```
@@ -33,6 +35,7 @@ docker run \
   -e PLUGIN_ENDPOINTS="https://abc.com:3000,https://def.com:3000" \
   -e GITHUB_TOKEN=GITHUB8168c98304b \
   --name drone-plugin-pipeline \
+  -detach=true \
   microadam/drone-config-plugin-pipeline
 ```
 
