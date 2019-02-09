@@ -35,6 +35,7 @@ app.post('/', bodyParser.json(), async (req, res) => {
 
   const headers = { ...req.headers, 'content-length': undefined }
   const endpoints = endpointsString.split(',')
+  let hasErrored = false
 
   for (let url of endpoints) {
     console.log('Requesting:', url)
@@ -45,14 +46,22 @@ app.post('/', bodyParser.json(), async (req, res) => {
       response = await promisify(request)(options)
     } catch (e) {
       console.log('ERROR:', e)
+      hasErrored = true
       break
     }
-    console.log(url, 'response:', response.statusCode)
-    if (response.statusCode === 200) {
+    const statusCode = response.statusCode
+    console.log(url, 'response:', statusCode)
+    if (statusCode === 200) {
       yaml = response.body.Data
+    } else if (statusCode >= 500) {
+      hasErrored = true
+      break
     }
   }
-
+  if (hasErrored) {
+    console.log('Error in processing pipeline. Please check individual plugins for cause of error')
+    return res.sendStatus(500)
+  }
   res.json({ Data: yaml })
 })
 
