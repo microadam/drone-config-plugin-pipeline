@@ -53,3 +53,4 @@ See [the official docs](https://docs.drone.io/extend/config) for extra informati
 Below are a list of config plugins that are known to be compatible with this plugin. If you know of any that are missing, please open a PR.
 
 [Changeset Conditional](https://github.com/microadam/drone-config-changeset-conditional)
+[Always Notify Slack](https://github.com/goodwillaz/drone-config-plugin-slack)
