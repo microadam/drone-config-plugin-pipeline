@@ -11,7 +11,7 @@ const sharedKey = process.env.PLUGIN_SECRET
 const endpointsString = process.env.PLUGIN_ENDPOINTS
 
 const gh = new GhApi({ version: '3.0.0' })
-gh.authenticate({ type: 'oauth', token: githubToken })
+gh.authenticate({ type: 'token', token: githubToken })
 
 const getYaml = createYamlRetriever(gh)
 
