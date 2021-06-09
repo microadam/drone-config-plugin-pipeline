@@ -11,8 +11,8 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "github4": "^1.1.1",
     "http-signature": "^1.2.0",
+    "octokit": "^1.0.5",
     "request": "^2.88.0"
   }
 }

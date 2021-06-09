@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const GhApi = require('github4')
+const { Octokit } = require('@octokit/rest')
+
 const request = require('request')
 const { promisify } = require('util')
 const createYamlRetriever = require('./lib/yaml-retriever')
@@ -10,8 +11,9 @@ const githubToken = process.env.GITHUB_TOKEN
 const sharedKey = process.env.PLUGIN_SECRET
 const endpointsString = process.env.PLUGIN_ENDPOINTS
 
-const gh = new GhApi({ version: '3.0.0' })
-gh.authenticate({ type: 'token', token: githubToken })
+const gh = new Octokit({
+  auth: githubToken
+})
 
 const getYaml = createYamlRetriever(gh)
 
